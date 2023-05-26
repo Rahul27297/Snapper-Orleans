@@ -30,6 +30,10 @@ namespace SnapperExperimentProcess
 
         Task<TransactionResult> Execute(IClusterClient client, int grainId, string startFunc, object funcInput, Dictionary<int, Tuple<string, int>> grainAccessInfo)
         {
+            foreach(KeyValuePair<int, Tuple<string, int>> entry in grainAccessInfo)
+            {
+                client.GetGrain<ICustomerAccountGroupGrain>(entry.Key).load()
+            }
             switch (implementationType)
             {
                 case ImplementationType.SNAPPER:
