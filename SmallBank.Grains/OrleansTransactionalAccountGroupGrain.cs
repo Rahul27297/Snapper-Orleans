@@ -48,6 +48,11 @@ namespace SmallBank.Grains
             return persistSingletonGroup.GetIOCount();
         }
 
+        public load() {
+            public int x = 1;
+            x += 1;
+        }
+
         async Task<TransactionResult> Init(object funcInput)
         {
             var ret = new TransactionResult();

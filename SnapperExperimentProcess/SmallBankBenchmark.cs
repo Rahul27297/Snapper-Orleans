@@ -30,10 +30,6 @@ namespace SnapperExperimentProcess
 
         Task<TransactionResult> Execute(IClusterClient client, int grainId, string startFunc, object funcInput, Dictionary<int, Tuple<string, int>> grainAccessInfo)
         {
-            foreach(KeyValuePair<int, Tuple<string, int>> entry in grainAccessInfo)
-            {
-                client.GetGrain<ICustomerAccountGroupGrain>(entry.Key).load()
-            }
             switch (implementationType)
             {
                 case ImplementationType.SNAPPER:
@@ -45,6 +41,10 @@ namespace SnapperExperimentProcess
                     return eventuallyConsistentGrain.StartTransaction(startFunc, funcInput);
                 case ImplementationType.ORLEANSTXN:
                     var txnGrain = client.GetGrain<IOrleansTransactionalAccountGroupGrain>(grainId);
+                    foreach(KeyValuePair<int, Tuple<string, int>> entry in grainAccessInfo)
+                    {
+                        client.GetGrain<IOrleansTransactionalAccountGroupGrain>(entry.Key).load()
+                    }
                     return txnGrain.StartTransaction(startFunc, funcInput);
                 default:
                     return null;

@@ -57,11 +57,6 @@ namespace SmallBank.Grains
         {
         }
 
-        public load() {
-            public int x = 1;
-            x += 1;
-        }
-
         public async Task<TransactionResult> Init(MyTransactionContext context, object funcInput)
         {
             TransactionResult res = new TransactionResult();
