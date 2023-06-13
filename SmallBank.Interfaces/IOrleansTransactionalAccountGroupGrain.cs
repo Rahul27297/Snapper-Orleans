@@ -11,6 +11,7 @@ namespace SmallBank.Interfaces
         Task<TransactionResult> StartTransaction(string startFunc, object funcInput);
 
         Task SetIOCount();
+        Task load();
         Task<long> GetIOCount();
     }
 }
