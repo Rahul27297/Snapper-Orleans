@@ -43,7 +43,8 @@ namespace SnapperExperimentProcess
                     var txnGrain = client.GetGrain<IOrleansTransactionalAccountGroupGrain>(grainId);
                     foreach(KeyValuePair<int, Tuple<string, int>> entry in grainAccessInfo)
                     {
-                        await client.GetGrain<IOrleansTransactionalAccountGroupGrain>(entry.Key).load()
+                        await client.GetGrain<IOrleansTransactionalAccountGroupGrain>(grainId).load();
+                        await client.GetGrain<IOrleansTransactionalAccountGroupGrain>(entry.Key).load();
                     }
                     return txnGrain.StartTransaction(startFunc, funcInput);
                 default:

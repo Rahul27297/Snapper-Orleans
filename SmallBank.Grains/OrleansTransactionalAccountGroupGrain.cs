@@ -49,9 +49,15 @@ namespace SmallBank.Grains
         }
 
         public Task load() {
-            var x = 1;
-            x = x + 1;
-            return Task.CompletedTask
+            var x = this.state;
+            var y = true;
+            if (!x) {
+                y = true;
+            }
+            else {
+                y = false;
+            }
+            return Task.CompletedTask;
         }
 
         async Task<TransactionResult> Init(object funcInput)
